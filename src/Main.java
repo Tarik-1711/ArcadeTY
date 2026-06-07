@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,12 +9,13 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class Main extends Application {
 
-    private List<Game> games;
+    private List<Game> games = new ArrayList<>();
 
     @Override
     public void start(Stage stage) {
@@ -21,9 +23,12 @@ public class Main extends Application {
         stage.setTitle("ArcadeTY");
 
         FlowPane flow = new FlowPane();
+        flow.setAlignment(Pos.CENTER);
         stage.setScene(new Scene(flow, 600, 400));
 
         Label title = new Label("ArcadeTY");
+        title.setStyle("-fx-font-size: 32px; -fx-text-alignment: center; -fx-alignment: center;");
+        flow.getChildren().add(title);
 
         for(Game g : games) {
             flow.getChildren().add(gameCard(g));
