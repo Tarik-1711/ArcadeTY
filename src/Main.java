@@ -4,7 +4,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -26,14 +28,18 @@ public class Main extends Application {
 
         stage.setTitle("ArcadeTY");
 
-        FlowPane flow = new FlowPane();
-        flow.setAlignment(Pos.CENTER);
-        flow.setHgap(20);
-        stage.setScene(new Scene(flow, 600, 400));
+        BorderPane bord = new BorderPane();
 
         Label title = new Label("ArcadeTY");
         title.setStyle("-fx-font-size: 32px; -fx-text-alignment: center; -fx-alignment: center;");
-        flow.getChildren().add(title);
+        bord.setTop(title);
+        FlowPane flow = new FlowPane();
+        bord.setCenter(flow);
+        flow.setAlignment(Pos.CENTER);
+        flow.setHgap(20);
+        stage.setScene(new Scene(bord, 600, 400));
+
+        BorderPane.setAlignment(title,Pos.CENTER);
 
         for(Game g : games) {
             flow.getChildren().add(gameCard(g));
