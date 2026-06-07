@@ -19,10 +19,16 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
+        games.add(new TicTacToe("TicTacToe"));
+        games.add(new TicTacToe("TicTacToe"));
+        games.add(new TicTacToe("TicTacToe"));
+        games.add(new TicTacToe("TicTacToe"));
+
         stage.setTitle("ArcadeTY");
 
         FlowPane flow = new FlowPane();
         flow.setAlignment(Pos.CENTER);
+        flow.setHgap(20);
         stage.setScene(new Scene(flow, 600, 400));
 
         Label title = new Label("ArcadeTY");
@@ -41,10 +47,13 @@ public class Main extends Application {
 
 
     public VBox gameCard(Game g) {
-        ImageView b = new ImageView(String.valueOf(g.getImage()));
         Label title = new Label(g.getTitle());
         Button play = new Button("Spielen");
         play.setOnAction(e -> g.play());
-        return new VBox(b, title, play);
+        if(g.getImage() != null) {
+            ImageView b = new ImageView(String.valueOf(g.getImage()));
+            return new VBox(title, play, b);
+        }
+        else return new VBox(title, play);
     }
 }
