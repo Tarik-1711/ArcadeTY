@@ -5,6 +5,18 @@ public abstract class Game {
     private Image image;
     private String beschreibung;
 
+    public String getTitle() {
+        return title;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public String getBeschreibung() {
+        return beschreibung;
+    }
+
     public Game(String title, Image image) {
         this.title = title;
         this.image = image;
