@@ -3,6 +3,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -36,11 +37,10 @@ public class Main extends Application {
 
 
     public VBox gameCard(Game g) {
-        Image b = new Image(String.valueOf(g.getImage()));
+        ImageView b = new ImageView(String.valueOf(g.getImage()));
         Label title = new Label(g.getTitle());
         Button play = new Button("Spielen");
         play.setOnAction(e -> g.play());
-        VBox vBox = new VBox(b, title, play);
-        return vBox;
+        return new VBox(b, title, play);
     }
 }
