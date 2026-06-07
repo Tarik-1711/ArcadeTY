@@ -1,4 +1,5 @@
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -58,8 +59,17 @@ public class Main extends Application {
         play.setOnAction(e -> g.play());
         if(g.getImage() != null) {
             ImageView b = new ImageView(String.valueOf(g.getImage()));
-            return new VBox(title, play, b);
+            VBox v = new VBox(title, play, b);
+            v.setPadding(new Insets(20));
+            v.setStyle("-fx-background-color: gray;");
+            return v;
         }
-        else return new VBox(title, play);
+
+        else{
+            VBox v = new VBox(title, play);
+            v.setPadding(new Insets(20));
+            v.setStyle("-fx-background-color: gray;");
+            return v;
+        }
     }
 }
