@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 public class TicTacToe extends Game{
     private Button[][] btn= new Button[3][3];
     private Label status= new Label("X ist dran");
-    private char current= 'X';
+    private String current= "X";
 
     public TicTacToe() {
         super("TicTacToe");
@@ -42,12 +42,16 @@ public class TicTacToe extends Game{
     public void createGrid(GridPane gd){
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
+                int x =i, y = j;
                 btn[i][j] = new Button();
                 btn[i][j].setPrefSize(100, 100);
+                btn[i][j].setOnAction(e -> changeValue(x,y));
                 gd.add(btn[i][j], j, i);
             }
         }
     }
 
-
+    public void changeValue(int x, int y){
+        btn[x][y].setText(current);
+    }
 }
