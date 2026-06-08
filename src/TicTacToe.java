@@ -4,6 +4,7 @@ public class TicTacToe extends Game{
     public static void main(String[] args) {
 
     }
+
     public TicTacToe(String title, Image image) {
         super(title, image);
     }
@@ -14,6 +15,6 @@ public class TicTacToe extends Game{
 
     @Override
     public void play() {
-
+        TicTacToeGame.startGame();
     }
 }
