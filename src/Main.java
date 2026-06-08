@@ -22,11 +22,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
 
-        games.add(new TicTacToe("TicTacToe"));
-        games.add(new TicTacToe("TicTacToe"));
-        games.add(new TicTacToe("TicTacToe"));
-        games.add(new TicTacToe("TicTacToe"));
-
+        games.add(new TicTacToe());
         stage.setTitle("ArcadeTY");
 
         BorderPane bord = new BorderPane();
