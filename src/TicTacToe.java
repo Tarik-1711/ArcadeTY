@@ -10,6 +10,7 @@ public class TicTacToe extends Game{
     private Button[][] btn= new Button[3][3];
     private Label status= new Label("X ist dran");
     private String current= "X";
+    private String next = "O";
 
     public TicTacToe() {
         super("TicTacToe");
@@ -53,5 +54,8 @@ public class TicTacToe extends Game{
 
     public void changeValue(int x, int y){
         btn[x][y].setText(current);
+        String o = current;
+        current = next;
+        next= o;
     }
 }
