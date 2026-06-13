@@ -4,11 +4,11 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -49,23 +49,52 @@ public class Main extends Application {
     }
 
 
-    public VBox gameCard(Game g) {
+    public StackPane gameCard(Game g) {
         Label title = new Label(g.getTitle());
+        title.setStyle("-fx-text-fill: white;" +
+                "-fx-background-radius: 10;" +
+                "-fx-background-color: rgba(0,0,0,0.5);");
         Button play = new Button("Spielen");
         play.setOnAction(e -> g.play());
+        StackPane sp = new StackPane();
+        VBox v;
         if(g.getImage() != null) {
-            ImageView b = new ImageView(String.valueOf(g.getImage()));
-            VBox v = new VBox(title, play, b);
-            v.setPadding(new Insets(20));
-            v.setStyle("-fx-background-color: gray;");
-            return v;
+            ImageView b = new ImageView(g.getImage());
+            b.setFitHeight(100);
+            b.setFitWidth(100);
+            b.setPreserveRatio(true);
+
+            Rectangle clip = new Rectangle(
+                    b.getFitWidth(),
+                    b.getFitHeight()
+            );
+
+            clip.setArcWidth(20);
+            clip.setArcHeight(20);
+
+            b.setClip(clip);
+            sp.getChildren().add(b);
         }
 
-        else{
-            VBox v = new VBox(title, play);
-            v.setPadding(new Insets(20));
-            v.setStyle("-fx-background-color: gray;");
-            return v;
-        }
+        v = new VBox(title, play);
+        sp.getChildren().add(v);
+
+
+        //Style
+        v.setPadding(new Insets(20));
+        v.setSpacing(10);
+        v.setStyle("-fx-background-color:"+ g.getColor().toString()+";" +
+                "-fx-background-radius: 15;");
+        v.setAlignment(Pos.CENTER);
+
+        DropShadow sh = new DropShadow();
+        sh.setColor(g.getColor());
+        sh.setRadius(10);
+        sh.setOffsetX(0);
+        sh.setOffsetY(4);
+
+        v.setEffect(sh);
+        return sp;
+
     }
 }
