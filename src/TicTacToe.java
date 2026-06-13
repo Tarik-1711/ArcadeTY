@@ -1,14 +1,11 @@
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
-
-import javax.xml.transform.Source;
 
 public class TicTacToe extends Game{
     private Button[][] btn= new Button[3][3];
@@ -23,8 +20,7 @@ public class TicTacToe extends Game{
     private Boolean vsCom = false;
 
     public TicTacToe() {
-        super("TicTacToe");
-
+        super("TicTacToe", "/resources/tictactoe.png","Klassisches TicTacToe bei dem man zwischen Computer oder gegen einen Freund lokal spielen kann.");
     }
 
     @Override
