@@ -11,6 +11,8 @@ public class FlappyBird extends Game implements Runnable{
     private Stage stage = new Stage();
     Button jump = new Button("Jump");
 
+    Thread gameThread;
+
     public FlappyBird() {
         super("FlapppyBird", "/resources/flappybird.png", "flappybird", Color.SEAGREEN);
     }
@@ -21,6 +23,9 @@ public class FlappyBird extends Game implements Runnable{
         Pane p = new Pane();
         stage.setScene(new Scene(p, 600, 400));
         stage.setTitle("FlappyBird wow");
+        stage.setOnCloseRequest(e -> {
+            gameThread = null;
+        });
 
         createPlayer();
         p.getChildren().add(player);
@@ -37,6 +42,8 @@ public class FlappyBird extends Game implements Runnable{
 
         stage.show();
 
+        startGameThread();
+
     }
 
     public void createPlayer(){
@@ -50,8 +57,19 @@ public class FlappyBird extends Game implements Runnable{
         player.setFill(Color.YELLOW);
     }
 
+    public void startGameThread(){
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+
+    int i = 0;
     @Override
     public void run() {
+
+        while(gameThread !=null) {
+            System.out.println("Loop is running yay" + i);
+            i++;
+        }
 
     }
 }
