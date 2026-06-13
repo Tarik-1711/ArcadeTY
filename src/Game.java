@@ -7,24 +7,7 @@ public abstract class Game {
     private String title;
     private Image image;
     private String beschreibung;
-    private static int index = 0;
-
-    Color[] colors = new Color[] {
-            Color.STEELBLUE,
-            Color.SEAGREEN,
-            Color.ORANGE,
-            Color.CRIMSON,
-            Color.MEDIUMPURPLE,
-            Color.DARKORANGE,
-            Color.FORESTGREEN,
-            Color.DARKRED,
-            Color.ORCHID,
-            Color.SANDYBROWN,
-            Color.DARKVIOLET,
-            Color.LIGHTGRAY,
-            Color.DIMGRAY,
-            Color.BLACK
-    };
+    private Color color;
 
     public String getTitle() {
         return title;
@@ -35,18 +18,18 @@ public abstract class Game {
     }
 
     public Color getColor() {
-        return colors[index];
+        return color;
     }
 
     public String getBeschreibung() {
         return beschreibung;
     }
 
-    public Game(String title, String imagepath, String beschreibung) {
-        index++;
+    public Game(String title, String imagepath, String beschreibung, Color color) {
         this.title = title;
         this.image = new Image(Objects.requireNonNull(getClass().getResourceAsStream(imagepath)));
         this.beschreibung = beschreibung;
+        this.color = color;
     }
 
     public Game(String title) {

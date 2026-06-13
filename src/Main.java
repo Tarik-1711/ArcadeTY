@@ -23,6 +23,7 @@ public class Main extends Application {
     public void start(Stage stage) {
 
         games.add(new TicTacToe());
+        games.add(new FlappyBird());
         stage.setTitle("ArcadeTY");
 
         BorderPane bord = new BorderPane();
@@ -79,7 +80,7 @@ public class Main extends Application {
         sh.setColor(g.getColor());
         sh.setRadius(10);
         sh.setOffsetX(0);
-        sh.setOffsetY(4);
+        sh.setOffsetY(10);
 
         sp.setEffect(sh);
         return sp;

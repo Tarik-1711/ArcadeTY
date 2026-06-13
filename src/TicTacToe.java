@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class TicTacToe extends Game{
@@ -20,7 +21,7 @@ public class TicTacToe extends Game{
     private Boolean vsCom = false;
 
     public TicTacToe() {
-        super("TicTacToe", "/resources/tictactoe.png","Klassisches TicTacToe bei dem man zwischen Computer oder gegen einen Freund lokal spielen kann.");
+        super("TicTacToe", "/resources/tictactoe.png","Klassisches TicTacToe bei dem man zwischen Computer oder gegen einen Freund lokal spielen kann.", Color.STEELBLUE);
     }
 
     @Override
