@@ -10,7 +10,6 @@ public class FlappyBird extends Game{
     private Rectangle player;
     private Stage stage = new Stage();
     Button jump = new Button("Jump");
-    Boolean jumped = false;
 
     public FlappyBird() {
         super("FlapppyBird", "/resources/flappybird.png", "flappybird", Color.SEAGREEN);
@@ -28,8 +27,11 @@ public class FlappyBird extends Game{
 
         jump.setOnAction(e -> {
             player.setLayoutY(player.getLayoutY() - 60);
-            jumped = true;
         });
+
+        jump.setPrefSize(200, 200);
+        jump.setLayoutY(250);
+        jump.setLayoutX(350);
 
         p.getChildren().add(jump);
 
@@ -61,8 +63,8 @@ public class FlappyBird extends Game{
 
     public void updatePlayer() {
         player.setLayoutY(player.getLayoutY()+1);
-    }
 
+    }
 
 
 }
