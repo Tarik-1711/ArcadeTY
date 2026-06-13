@@ -1,30 +1,24 @@
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import javax.xml.transform.Source;
 
 public class TicTacToe extends Game{
     private Button[][] btn= new Button[3][3];
-    private Label status= new Label("X ist dran");
     private String current= "X";
     private String next = "O";
 
     private Stage stage = new Stage();
-
     private Boolean end = false;
-
-    private Boolean vsCom = false;
+    private Boolean vsComputer = false;
 
     public TicTacToe() {
         super("TicTacToe");
-
     }
 
     @Override
@@ -32,38 +26,53 @@ public class TicTacToe extends Game{
         start(stage);
     }
 
+    /**
+     * Erstellt die Stage/Scene.
+     * Fügt einen Titel "Tic-Tac-Toe" hinzu.
+     * @param stage
+     */
     public void start(Stage stage){
 
         BorderPane root= new BorderPane();
         GridPane gd= new GridPane();
         stage.setScene(new Scene(root, 600, 400));
         gd.setAlignment(Pos.CENTER);
+
         stage.setTitle("TicTacToe");
-        Label titleH= new Label("Tic-Tac-Toe");
-        titleH.setStyle("-fx-font-size: 32px; -fx-text-alignment: center; -fx-alignment: center;");
-        BorderPane.setAlignment(titleH,Pos.CENTER);
-        root.setTop(titleH);
+        Label titleT= new Label("Tic-Tac-Toe");
+        titleT.setStyle("-fx-font-size: 32px; -fx-text-alignment: center; -fx-alignment: center;");
+        BorderPane.setAlignment(titleT,Pos.CENTER);
+        root.setTop(titleT);
+
         root.setCenter(gd);
         createGrid(gd);
-        askMode(stage);
-        if(vsCom) playComp();
+        askMode();
+
+        if(vsComputer){
+            playComp();
+        }
+
         stage.show();
     }
 
-    private boolean askMode(Stage parent) {
+    /**
+     *Methode ist dazu da, um zu fragen, ob man gegen Mensch oder Computer spielen möchte.
+     * Erstellt auch ein kleines Fenster mit den Buttons "Mensch" oder "Computer".
+     * @return
+     */
+    private boolean askMode() {
         Stage w = new Stage();
-        w.initOwner(parent);
-
         Button mensch = new Button("Mensch");
         Button computer = new Button("Computer");
 
-
         mensch.setOnAction(e -> {
-            vsCom = false; w.close();
+            vsComputer = false;
+            w.close();
         });
 
         computer.setOnAction(e -> {
-            vsCom = true; w.close();
+            vsComputer = true;
+            w.close();
         });
 
         HBox box = new HBox(20, mensch, computer);
@@ -72,14 +81,19 @@ public class TicTacToe extends Game{
         w.setTitle("Modus wählen");
         w.showAndWait();
 
-        return vsCom;
+        return vsComputer;
     }
 
 
+    /**
+     * Erstellt das Grid (Felder)
+     * @param gd
+     */
     private void createGrid(GridPane gd){
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
-                int x =i, y = j;
+                int x =i;
+                int y = j;
                 btn[i][j] = new Button();
                 btn[i][j].setPrefSize(100, 100);
                 btn[i][j].setOnAction(e -> changeValue(x,y));
@@ -88,20 +102,39 @@ public class TicTacToe extends Game{
         }
     }
 
+    /**
+     *Sorgt, dass das Feld nicht veränderbar ist.
+     * Spieler setzt X oder O.
+     * @param x
+     * @param y
+     */
     private void changeValue(int x, int y){
-        if(!btn[x][y].getText().isEmpty()) return;
+        if(!btn[x][y].getText().isEmpty()){
+            return;
+        }
+
         btn[x][y].setText(current);
         String o = current;
         current = next;
         next= o;
         checkWin();
-        if(end) stage.close();
+
+        if(end) {
+            stage.close();
+        }
     }
 
+    /**
+     * Methode, um gegen Computer zu spielen.
+     */
     private void playComp() {
         System.out.println("Computer gestartet");
     }
 
+    /**
+     * Methode, um zu prüfen, ob man gewonnen hat.
+     * Reihen, Spalten und Diagonale werden geprüft.
+     */
     private void checkWin(){
             // Reihen
             for (int i = 0; i < 3; i++) {
@@ -130,12 +163,16 @@ public class TicTacToe extends Game{
             }
 
             System.out.println("Unentschieden");
-
     }
 
+    /**
+     * Methode, um zu prüfen, ob die drei Felder/Buttons alle gleich sind.
+     * @param a
+     * @param b
+     * @param c
+     * @return
+     */
     private boolean same(Button a, Button b, Button c) {
-        return !a.getText().isEmpty() &&
-                a.getText().equals(b.getText()) &&
-                b.getText().equals(c.getText());
+        return !a.getText().isEmpty() && a.getText().equals(b.getText()) && b.getText().equals(c.getText());
     }
 }
