@@ -50,14 +50,11 @@ public class Main extends Application {
 
 
     public StackPane gameCard(Game g) {
-        Label title = new Label(g.getTitle());
-        title.setStyle("-fx-text-fill: white;" +
-                "-fx-background-radius: 10;" +
-                "-fx-background-color: rgba(0,0,0,0.5);");
-        Button play = new Button("Spielen");
+        Button play = new Button();
         play.setOnAction(e -> g.play());
+        play.setPrefSize(100,100);
+        play.setOpacity(0);
         StackPane sp = new StackPane();
-        VBox v;
         if(g.getImage() != null) {
             ImageView b = new ImageView(g.getImage());
             b.setFitHeight(100);
@@ -76,16 +73,7 @@ public class Main extends Application {
             sp.getChildren().add(b);
         }
 
-        v = new VBox(title, play);
-        sp.getChildren().add(v);
-
-
-        //Style
-        v.setPadding(new Insets(20));
-        v.setSpacing(10);
-        v.setStyle("-fx-background-color:"+ g.getColor().toString()+";" +
-                "-fx-background-radius: 15;");
-        v.setAlignment(Pos.CENTER);
+        sp.getChildren().add(play);
 
         DropShadow sh = new DropShadow();
         sh.setColor(g.getColor());
@@ -93,7 +81,7 @@ public class Main extends Application {
         sh.setOffsetX(0);
         sh.setOffsetY(4);
 
-        v.setEffect(sh);
+        sp.setEffect(sh);
         return sp;
 
     }
