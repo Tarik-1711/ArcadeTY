@@ -6,7 +6,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class FlappyBird extends Game{
+public class FlappyBird extends Game implements Runnable{
     private Rectangle player;
     private Stage stage = new Stage();
     Button jump = new Button("Jump");
@@ -37,7 +37,6 @@ public class FlappyBird extends Game{
 
         stage.show();
 
-        gameLoop();
     }
 
     public void createPlayer(){
@@ -51,20 +50,8 @@ public class FlappyBird extends Game{
         player.setFill(Color.YELLOW);
     }
 
-    public void gameLoop() {
-        AnimationTimer loop = new AnimationTimer() {
-            @Override
-            public void handle(long l) {
-                updatePlayer();
-            }
-        };
-        loop.start();
-    }
-
-    public void updatePlayer() {
-        player.setLayoutY(player.getLayoutY()+1);
+    @Override
+    public void run() {
 
     }
-
-
 }
