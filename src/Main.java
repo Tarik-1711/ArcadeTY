@@ -81,6 +81,8 @@ public class Main extends Application {
         sh.setOffsetY(10);
 
         sp.setEffect(sh);
+        sp.setOnMouseEntered(e -> sp.setTranslateY(-10));
+        sp.setOnMouseExited(e -> sp.setTranslateY(0));
         return sp;
 
     }
