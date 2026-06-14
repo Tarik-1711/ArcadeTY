@@ -61,7 +61,7 @@ public class TicTacToe extends Game{
      * Erstellt auch ein kleines Fenster mit den Buttons "Mensch" oder "Computer".
      * @return
      */
-    private boolean askMode() {
+    private void askMode() {
         Stage w = new Stage();
         Button mensch = new Button("Mensch");
         Button computer = new Button("Computer");
@@ -73,6 +73,7 @@ public class TicTacToe extends Game{
 
         computer.setOnAction(e -> {
             vsComputer = true;
+            playComp();
             w.close();
         });
 
@@ -81,8 +82,6 @@ public class TicTacToe extends Game{
         w.setScene(new Scene(box, 250, 100));
         w.setTitle("Modus wählen");
         w.showAndWait();
-
-        return vsComputer;
     }
 
 
@@ -141,6 +140,7 @@ public class TicTacToe extends Game{
             for (int i = 0; i < 3; i++) {
                 if (same(btn[i][0], btn[i][1], btn[i][2])) {
                     System.out.println(next + " hat gewonnen!");
+                    winScreen();
                     end = true;
                 }
             }
@@ -149,6 +149,7 @@ public class TicTacToe extends Game{
             for (int j = 0; j < 3; j++) {
                 if (same(btn[0][j], btn[1][j], btn[2][j])) {
                     end = true;
+                    winScreen();
                     System.out.println(next + " hat gewonnen!");
                 }
             }
@@ -156,10 +157,12 @@ public class TicTacToe extends Game{
             // Diagonalen
             if (same(btn[0][0], btn[1][1], btn[2][2])) {
                 end = true;
+                winScreen();
                 System.out.println(next + " hat gewonnen!");
             }
             if (same(btn[0][2], btn[1][1], btn[2][0])) {
                 end = true;
+                winScreen();
                 System.out.println(next + " hat gewonnen!");
             }
 
@@ -175,5 +178,17 @@ public class TicTacToe extends Game{
      */
     private boolean same(Button a, Button b, Button c) {
         return !a.getText().isEmpty() && a.getText().equals(b.getText()) && b.getText().equals(c.getText());
+    }
+
+    /**
+     * Fenster, wer gewonnen hat
+     */
+    private void winScreen(){
+        BorderPane border= new BorderPane();
+        Label label= new Label();
+        border.setCenter(label);
+        label.setText(next + " hat gewonnen!");
+        stage.setScene(new Scene(border, 200, 200));
+        stage.showAndWait();
     }
 }
