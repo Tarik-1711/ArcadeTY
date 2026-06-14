@@ -60,6 +60,7 @@ public class FlappyBird extends Game implements Runnable{
 
         player.setHeight(40);
         player.setWidth(40);
+        player.setLayoutX(200);
 
         player.setFill(Color.YELLOW);
     }
