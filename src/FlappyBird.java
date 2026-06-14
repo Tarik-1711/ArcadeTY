@@ -1,4 +1,4 @@
-import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
@@ -6,12 +6,20 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.util.Arrays;
+
 public class FlappyBird extends Game implements Runnable{
+    private final int gravity = 2;
+    private final int jumpheight = 3;
+
+    private int frames = 0;
+
     private Rectangle player;
     private Stage stage = new Stage();
-    Button jump = new Button("Jump");
+    private Pane p = new Pane();
+    private Button jump = new Button("Jump");
 
-    Thread gameThread;
+    private Thread gameThread;
 
     public FlappyBird() {
         super("FlapppyBird", "/resources/flappybird.png", "flappybird", Color.SEAGREEN);
@@ -20,12 +28,12 @@ public class FlappyBird extends Game implements Runnable{
     @Override
     public void play() {
         System.out.println("FlappyBird");
-        Pane p = new Pane();
         stage.setScene(new Scene(p, 600, 400));
         stage.setTitle("FlappyBird wow");
         stage.setOnCloseRequest(e -> {
             gameThread = null;
         });
+        stage.setResizable(false);
 
         createPlayer();
         p.getChildren().add(player);
@@ -51,8 +59,8 @@ public class FlappyBird extends Game implements Runnable{
         player.setArcHeight(20);
         player.setArcWidth(20);
 
-        player.setHeight(50);
-        player.setWidth(80);
+        player.setHeight(40);
+        player.setWidth(40);
 
         player.setFill(Color.YELLOW);
     }
@@ -62,14 +70,54 @@ public class FlappyBird extends Game implements Runnable{
         gameThread.start();
     }
 
-    int i = 0;
+
     @Override
     public void run() {
-
         while(gameThread !=null) {
-            System.out.println("Loop is running yay" + i);
-            i++;
-        }
+            Platform.runLater(() -> {
+                frames++;
+                if(frames%200==0){
+                    generatePipes(p);
+                }
 
+                updatePipes();
+
+                if (jump.isPressed()) player.setLayoutY(player.getLayoutY() - jumpheight);
+                else player.setLayoutY(player.getLayoutY() + gravity);
+            });
+            try {
+                Thread.sleep(16);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            }
+        }
+    }
+
+    public void generatePipes(Pane p){
+        int gap = 120;
+        int center = 100 + (int)(Math.random() * 200);
+
+        Rectangle top = new Rectangle();
+        top.setWidth(60);
+        top.setHeight(center - gap/2);
+        top.setLayoutX(600);
+        top.setFill(Color.GREEN);
+
+        Rectangle bottom = new Rectangle();
+        bottom.setWidth(60);
+        bottom.setHeight(400 - (center + gap/2));
+        bottom.setLayoutX(600);
+        bottom.setLayoutY(center + gap/2);
+        bottom.setFill(Color.GREEN);
+
+        p.getChildren().addAll(top,bottom);
+    }
+
+    public void updatePipes(){
+        for(var node : p.getChildren()) {
+            if(node instanceof Rectangle r && r != player) {
+                r.setLayoutX(r.getLayoutX()-1);
+            }
+        }
     }
 }
