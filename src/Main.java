@@ -49,11 +49,13 @@ public class Main extends Application {
 
 
     public StackPane gameCard(Game g) {
+        StackPane sp = new StackPane();
         Button play = new Button();
+        Label name = new Label(g.getTitle());
+        name.setTranslateY(name.getLayoutY()-75);
         play.setOnAction(e -> g.play());
         play.setPrefSize(100,100);
         play.setOpacity(0);
-        StackPane sp = new StackPane();
         if(g.getImage() != null) {
             ImageView b = new ImageView(g.getImage());
             b.setFitHeight(100);
@@ -74,6 +76,7 @@ public class Main extends Application {
 
         sp.getChildren().add(play);
 
+
         DropShadow sh = new DropShadow();
         sh.setColor(g.getColor());
         sh.setRadius(10);
@@ -83,6 +86,7 @@ public class Main extends Application {
         sp.setEffect(sh);
         sp.setOnMouseEntered(e -> sp.setTranslateY(-10));
         sp.setOnMouseExited(e -> sp.setTranslateY(0));
+        sp.getChildren().add(name);
         return sp;
 
     }
