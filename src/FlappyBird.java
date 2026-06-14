@@ -1,3 +1,4 @@
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -5,6 +6,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 
 public class FlappyBird extends Game implements Runnable{
@@ -65,7 +67,9 @@ public class FlappyBird extends Game implements Runnable{
     }
 
     private void playerMovement() {
+        player.setLayoutY(player.getLayoutY()-jumpheight);
 
+        player.setRotate(45);
     }
 
     private void startGameThread(){
@@ -86,7 +90,10 @@ public class FlappyBird extends Game implements Runnable{
                 updatePipes();
 
                 if (jump.isPressed()) playerMovement();
-                else player.setLayoutY(player.getLayoutY() + gravity);
+                else {
+                    player.setLayoutY(player.getLayoutY() + gravity);
+                    player.setRotate(-45);
+                }
             });
             try {
                 Thread.sleep(16);
@@ -97,7 +104,7 @@ public class FlappyBird extends Game implements Runnable{
     }
 
     private void generatePipes(Pane p){
-        int gap = 120;
+        int gap = 150;
         int center = 100 + (int)(Math.random() * 200);
 
         Rectangle top = new Rectangle();
