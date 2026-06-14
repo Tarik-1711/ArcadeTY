@@ -6,7 +6,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-import java.util.Arrays;
 
 public class FlappyBird extends Game implements Runnable{
     private final int gravity = 2;
@@ -54,7 +53,7 @@ public class FlappyBird extends Game implements Runnable{
 
     }
 
-    public void createPlayer(){
+    private void createPlayer(){
         player = new Rectangle();
         player.setArcHeight(20);
         player.setArcWidth(20);
@@ -65,7 +64,11 @@ public class FlappyBird extends Game implements Runnable{
         player.setFill(Color.YELLOW);
     }
 
-    public void startGameThread(){
+    private void playerMovement() {
+
+    }
+
+    private void startGameThread(){
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -82,7 +85,7 @@ public class FlappyBird extends Game implements Runnable{
 
                 updatePipes();
 
-                if (jump.isPressed()) player.setLayoutY(player.getLayoutY() - jumpheight);
+                if (jump.isPressed()) playerMovement();
                 else player.setLayoutY(player.getLayoutY() + gravity);
             });
             try {
@@ -93,7 +96,7 @@ public class FlappyBird extends Game implements Runnable{
         }
     }
 
-    public void generatePipes(Pane p){
+    private void generatePipes(Pane p){
         int gap = 120;
         int center = 100 + (int)(Math.random() * 200);
 
@@ -113,7 +116,7 @@ public class FlappyBird extends Game implements Runnable{
         p.getChildren().addAll(top,bottom);
     }
 
-    public void updatePipes(){
+    private void updatePipes(){
         for(var node : p.getChildren()) {
             if(node instanceof Rectangle r && r != player) {
                 r.setLayoutX(r.getLayoutX()-1);
